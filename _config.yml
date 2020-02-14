@@ -17,8 +17,8 @@ sass:
 
 permalink: /posts/:title/
 texture:
-  title: Adam Denisov
-  tagline: Developer. Designer
+  title: Hanweeee Blog
+  tagline: iOS / macOS Application Developer
   date_format: "%b %-d, %Y"
   style: black
   showNav: false
@@ -26,7 +26,7 @@ texture:
 
   # generate social links in footer
   social_links:
-    twitter: thelehhman
+    twitter: "https://www.naver.com"
     github:  thelehhman
     linkedIn: in/thelehhman
     rss: rss
