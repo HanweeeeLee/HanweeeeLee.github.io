@@ -1,46 +1,35 @@
 ---
+title: ''
 layout: default
 ---
 
-<article class="posts">
-  <h1>{{ page.title }}</h1>
+<main class="content" role="main">
 
-  <div clsss="meta">
-    <span class="date">
-      {{ page.date | date: "%Y-%m-%d" }}
-    </span>
+  <article class="post">
 
-    <ul class="tag">
-      {% for tag in page.tags %}
-      <li>
-        <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag }}">
-          {{ tag }}
-        </a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
+    <header class="post-header">
+      <h1 class="post-title">{{ page.title }}</h1>
+      <section class="post-meta">
+        <time class="post-date" datetime="{{ page.date | date:"%Y-%m-%d" }}">{{ post.date | date: "%-d of %b of %Y" }}</time>
+      </section>
+    </header>
 
-  <div class="entry">
-    {{ content }}
-  </div>
+    <section class="post-content">
+      {{content}}
+    </section>
 
-  {% include disqus.html %}
-</article>
+    <footer class="post-footer">
+      <figure class="author-image">
+        <span class="img" style="background-image: url('{{ site.author.picture }}')">
+          <span class="hidden">{{ site.author.name }}'s Picture</span>
+        </span>
+      </figure>
+      <section class="author">
+        <h4>{{ site.author.name }}</h4>
+        <p>{{ site.author.description }}</p>
+      </section>
+    </footer>
 
-<div class="pagination">
-  {% if page.previous.url %}
-    <span class="prev" >
-      <a href="{{ site.url }}{{ site.baseurl }}{{ page.previous.url }}">
-        ← 上一篇
-      </a>
-    </span>
-  {% endif %}
-  {% if page.next.url %}
-    <span class="next" >
-      <a href="{{ site.url }}{{ site.baseurl }}{{ page.next.url }}">
-        下一篇 →
-      </a>
-    </span>
-  {% endif %}
-</div>
+  </article>
+
+</main>
