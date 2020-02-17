@@ -1,3 +1,4 @@
 ---
 layout: home
+auther_profile: true
 ---
