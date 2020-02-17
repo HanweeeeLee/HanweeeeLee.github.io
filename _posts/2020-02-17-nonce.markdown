@@ -1,0 +1,45 @@
+---
+layout: post
+title:  "apple nonce에 대해서 노트"
+description: apple nonce.
+date:   2020-02-17 17:00:00 +0530
+categories: iOS Apple 
+---
+오늘 iOS앱 애플로그인을 구현하면서 헤맸던 부분에 대한 노트
+nonce 란??
+[애플 문서]에 의하면 토큰과 같은 고유한 키이긴하다.
+다만 다른점은 '한번만'사용 할 수 있다는점이다.
+
+기존 애플 로그인시 인증을 하기위해 credential을 생성 할 때  
+```
+OAuthProvider.credential(withProviderID: <#T##String#>, idToken: <#T##String#>, accessToken: <#T##String?#>)
+```
+를 사용하고 있던 프로젝트가 있었다.
+
+해당 프로젝트를 참조하며 새로 애플로그인을 적용하는 프로젝트에는
+```
+OAuthProvider.credential(withProviderID: <#T##String#>, idToken: <#T##String#>, rawNonce: <#T##String?#>)
+```
+을 사용했는데 차이점이 없을 줄 알았다.. ㅡ,.ㅡ
+하지만 막상 실행시켜보니 17094 에러가 계속 나길래 찾아봤더니
+
+```
+func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    Auth.auth().signIn(with: credential) { [weak self] (authResult, error) in
+        if (error != nil) {
+            self?.postNotificationSignInError()
+        return
+      }
+        NotificationCenter.default.post(name: Notification.Name(rawValue: NotificationDefine.APPLE_WITHRAWAL_LOGIN_SUCEESS_NOTIFICATION_KEY), object: credintialDic, userInfo: nil)
+    }
+}
+```
+
+이런식으로 무조건 nonce를 발급받은 후 무조건 signIn처리를 해주고 있었음..
+
+아마 signIn을 하면서 nonce가 한번 실행이 되었기때문에 정작 탈퇴등 재인증이 필요할때 해당 nonce가 invalid한 값이 된듯
+
+분기처리를 해놨더니 정상작동한다.
+
+
+[애플 문서]: https://developer.apple.com/documentation/storekit/skpaymentdiscount/3043531-nonce
