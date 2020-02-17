@@ -1,14 +1,15 @@
 ---
 layout: post
-title:  "apple nonce에 대해서 노트"
-description: apple nonce.
+title:  "Apple Login nonce에 대해서 노트"
+description: Apple Login nonce.
 date:   2020-02-17 17:00:00 +0530
 categories: iOS Apple 
 ---
 오늘 iOS앱 애플로그인을 구현하면서 헤맸던 부분에 대한 노트
 nonce 란??
 [애플 문서]에 의하면 토큰과 같은 고유한 키이긴하다.
-다만 다른점은 '한번만'사용 할 수 있다는점이다.
+물론 코드로 개발자가 파이어베이스에서 정의한 방식으로 생성하는 값이고, 파이어베이스에서 쓰는 값이기때문에.. 저 애플문서를 보는게 맞는가 싶기도 하지만..아마 같을듯?
+다만 토큰과 다른점은 '한번만'사용 할 수 있다는점이다.
 
 기존 애플 로그인시 인증을 하기위해 credential을 생성 할 때  
 ```
